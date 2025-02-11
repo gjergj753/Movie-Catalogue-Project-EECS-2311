@@ -8,17 +8,17 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="180.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="180.0" styleClass="main_menu_container" stylesheets="@../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="730.0" prefWidth="160.0">
+      <AnchorPane prefHeight="730.0" prefWidth="160.0" styleClass="left_container">
          <children>
-            <VBox prefHeight="80.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="80.0" prefWidth="160.0" styleClass="title_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <FontAwesomeIconView glyphName="FILM" size="30.0" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Movie" />
                </children>
             </VBox>
-            <VBox prefHeight="400.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <VBox prefHeight="400.0" prefWidth="160.0" styleClass="menu_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                <children>
                   <Button mnemonicParsing="false" text="Home">
                      <graphic>
@@ -38,21 +38,21 @@
                         <FontAwesomeIconView glyphName="HISTORY" size="20" />
                      </graphic></Button>
                   <Line endX="120.0" />
-                  <Button mnemonicParsing="false" text="Profile">
+                  <Button mnemonicParsing="false" styleClass="alt_menu_btn" text="Profile">
                      <graphic>
                         <FontAwesomeIconView glyphName="USER" size="20" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" text="Logout">
+                  <Button mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">
                      <graphic>
                         <FontAwesomeIconView glyphName="EXTERNAL_LINK" />
                      </graphic>
                   </Button>
                </children>
             </VBox>
-            <VBox prefHeight="120.0" prefWidth="130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+            <VBox prefHeight="120.0" prefWidth="130.0" styleClass="report_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report Bug" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report Suggestion/Bug" />
                   <Label text="Use the button to report any bugs" />
                   <Button mnemonicParsing="false" text="Report">
                      <graphic>
