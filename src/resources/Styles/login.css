@@ -6,7 +6,7 @@
 
 /* Logo Container Styles*/
 .login_logo_container{
-	-fx-background-color: #13242D;
+	-fx-background-color: #13242E;
 	-fx-alignment: center;
 }
 
@@ -15,9 +15,9 @@
 	-fx-fill: #FFFFFF
 }
 
-/*.login_logo_container FontAwesoneIconView{
+.login_logo_container FontAwesomeIconView {
 	-fx-fill: #ECF39E;
-}*/
+}
 
 /*Login Form Style*/
 .login_form_container{
@@ -26,7 +26,7 @@
 }
 
 .login_form_container Label {
-	-fx-font-size: 1.1;
+	-fx-font-size: 1.1em;
 	-fx-font-weight: bold;
 }
 
@@ -36,7 +36,7 @@
 	-fx-font-size: 1.2em;
 }
 
-.login_font_container Button{
+.login_form_container Button{
 	-fx-background-color: #13242D;
 	-fx-text-fill: #FFFFFF;
 	-fx-pref-width: 350;
