@@ -92,5 +92,5 @@ public class User implements Serializable{
         return "User{id=" + userId + ", username='" + userName + "'}";
     }
 
-    
+
 }

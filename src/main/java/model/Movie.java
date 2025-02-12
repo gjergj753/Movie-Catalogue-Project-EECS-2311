@@ -1,7 +1,5 @@
 package main.java.model;
 
-import main.java.dao.DatabaseConnection;
-
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date; // Import java.sql.Date
@@ -11,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.dao.DatabaseConnection;
+
 public class Movie implements Serializable {
     private int movieId;
     private String title;
@@ -19,11 +19,11 @@ public class Movie implements Serializable {
     private float rating;
 
     // Constructor
-    
+
     public Movie() {
-    	
+
     }
-    
+
     public Movie(int movieId, String title, String genres, Date releaseDate, float rating) {
         this.movieId = movieId;
         this.title = title;

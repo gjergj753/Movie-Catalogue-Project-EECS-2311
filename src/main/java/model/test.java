@@ -1,23 +1,15 @@
 package main.java.model;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import main.java.dao.DatabaseConnection;
-
 public class test{
 
- 
+
     public static void main(String[] args) {
-    	
-    	Movie movie = Movie.getMovieById(285);;
-    	
-    	
+
+    	Movie movie = Movie.getMovieById(285);
+
+
     	System.out.println(movie.getTitle());
-    	
+
 //        System.out.println("Retrieving movies from the database...");
 //
 //        // Directly retrieve movies in the main method
