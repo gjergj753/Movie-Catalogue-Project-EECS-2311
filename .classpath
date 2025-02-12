@@ -12,6 +12,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Rythem Ghimire/Documents/GitHub/Movie-Catalogue-Project-EECS-2311/lib/mysql-connector-j-8.0.33.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Rythem Ghimire/Documents/GitHub/Movie-Catalogue-Project-EECS-2311/lib/fontawesomefx-8.9.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
