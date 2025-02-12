@@ -1,6 +1,6 @@
-package main.model;
+package main.java.model;
 
-import main.dao.DatabaseConnection;
+import main.java.dao.DatabaseConnection;
 
 import java.io.Serializable;
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package main.model;
+package main.java.model;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import main.dao.DatabaseConnection;
+import main.java.dao.DatabaseConnection;
 
 public class test{
 

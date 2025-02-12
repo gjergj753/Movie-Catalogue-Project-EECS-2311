@@ -1,4 +1,4 @@
-package main.model;
+package main.java.model;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

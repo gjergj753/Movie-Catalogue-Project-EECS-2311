@@ -1,4 +1,4 @@
-package main.controller.Client;
+package main.java.controller.Client;
 
 public class DashboardController {
 

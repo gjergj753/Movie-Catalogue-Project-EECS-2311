@@ -1,4 +1,4 @@
-package main.controller.Client;
+package main.java.controller.Client;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
