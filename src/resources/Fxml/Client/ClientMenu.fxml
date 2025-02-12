@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="180.0" styleClass="main_menu_container" stylesheets="@../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="180.0" styleClass="main_menu_container" stylesheets="@../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.Client.ClientMenuController">
    <children>
       <AnchorPane prefHeight="730.0" prefWidth="160.0" styleClass="left_container">
          <children>
@@ -20,30 +20,30 @@
             </VBox>
             <VBox prefHeight="400.0" prefWidth="160.0" styleClass="menu_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                <children>
-                  <Button mnemonicParsing="false" text="Home">
+                  <Button fx:id="home_btn" mnemonicParsing="false" text="Home">
                      <graphic>
                         <FontAwesomeIconView glyphName="HOME" size="20.0" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" text="Film">
+                  <Button fx:id="film_btn" mnemonicParsing="false" text="Film">
                      <graphic>
                         <FontAwesomeIconView glyphName="FILM" size="20" />
                      </graphic></Button>
-                  <Button mnemonicParsing="false" text="Lists">
+                  <Button fx:id="lists_btn" mnemonicParsing="false" text="Lists">
                      <graphic>
                         <FontAwesomeIconView glyphName="LIST" size="20" />
                      </graphic></Button>
-                  <Button mnemonicParsing="false" text="Review">
+                  <Button fx:id="review_btn" mnemonicParsing="false" text="Review">
                      <graphic>
                         <FontAwesomeIconView glyphName="HISTORY" size="20" />
                      </graphic></Button>
                   <Line endX="120.0" />
-                  <Button mnemonicParsing="false" styleClass="alt_menu_btn" text="Profile">
+                  <Button fx:id="profile_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Profile">
                      <graphic>
                         <FontAwesomeIconView glyphName="USER" size="20" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">
+                  <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">
                      <graphic>
                         <FontAwesomeIconView glyphName="EXTERNAL_LINK" />
                      </graphic>
@@ -54,7 +54,7 @@
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report Suggestion/Bug" />
                   <Label text="Use the button to report any bugs" />
-                  <Button mnemonicParsing="false" text="Report">
+                  <Button fx:id="report_btn" mnemonicParsing="false" text="Report">
                      <graphic>
                         <FontAwesomeIconView glyphName="PLUS" />
                      </graphic>
