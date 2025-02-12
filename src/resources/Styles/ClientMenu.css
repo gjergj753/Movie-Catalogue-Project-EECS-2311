@@ -86,6 +86,7 @@
 	-fx-pref-width: 80;
 	-fx-background-color: #27374D;
 	-fx-fill: #FFFFFF;
+	-fx-text-fill: #FFFFFF;
 }
 
 .report_container Button:hover {
