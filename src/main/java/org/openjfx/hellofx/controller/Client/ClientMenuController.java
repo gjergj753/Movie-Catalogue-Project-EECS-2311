@@ -3,6 +3,8 @@ package org.openjfx.hellofx.controller.Client;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.openjfx.hellofx.model.Model;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
@@ -17,7 +19,19 @@ public class ClientMenuController implements Initializable{
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		//initialize buttons here for action
+		addListeners();
 	}
-
+	
+	public void addListeners() {
+		home_btn.setOnAction(event -> onDashboard());
+		film_btn.setOnAction(event -> onFilm());
+	}
+	
+	private void onDashboard() {
+		Model.getInstance().getViewFactory().getClientSelectedMenuItem().set("Dashboard");
+	}
+	
+	private void onFilm() {
+		Model.getInstance().getViewFactory().getClientSelectedMenuItem().set("Film");
+	}
 }

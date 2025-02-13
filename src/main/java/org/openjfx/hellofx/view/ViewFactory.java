@@ -1,5 +1,7 @@
 package org.openjfx.hellofx.view;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -7,12 +9,19 @@ import javafx.stage.Stage;
 import org.openjfx.hellofx.controller.Client.ClientController;
 
 
-public class ViewFactory {
 
+public class ViewFactory {
+	
+	private final StringProperty clientSelectedMenuItem;
 	private AnchorPane dashboardView;
+	private AnchorPane filmView;
 
 	public ViewFactory() {
-
+		this.clientSelectedMenuItem=new SimpleStringProperty("");
+	}
+	
+	public StringProperty getClientSelectedMenuItem() {
+		return clientSelectedMenuItem;
 	}
 
 	public AnchorPane getDashboardView() {
@@ -24,6 +33,17 @@ public class ViewFactory {
 			}
 		}
 		return dashboardView;
+	}
+	
+	public AnchorPane getFilmView() {
+		if(dashboardView==null) {
+			try {
+				filmView=new FXMLLoader(getClass().getResource("/Fxml/Client/Film.fxml")).load();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return filmView;
 	}
 
 	public void showLoginWindow() {
@@ -49,6 +69,10 @@ public class ViewFactory {
 		stage.setScene(scene);
 		stage.setTitle("Movie Catalogue");
 		stage.show();
+	}
+	
+	public void closeStage(Stage stage) {
+		stage.close();
 	}
 
 }

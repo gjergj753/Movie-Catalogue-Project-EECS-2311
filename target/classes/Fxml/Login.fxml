@@ -23,7 +23,7 @@
             <Label fx:id="password_lbl" text="Password:" />
             <TextField fx:id="password_fld" styleClass="input_field" />
             <Button fx:id="login_btn" mnemonicParsing="false" text="Log in" />
-            <Label fx:id="error_lbl" styleClass="error_label" text="Error:" />
+            <Label fx:id="error_lbl" styleClass="error_label"/>
          </children>
       </VBox>
    </children>

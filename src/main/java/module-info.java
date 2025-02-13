@@ -3,6 +3,7 @@ module org.openjfx.hellofx {
     requires javafx.fxml;
     requires de.jensd.fx.glyphs.fontawesome;
 	requires java.sql;
+	requires javafx.graphics;
 
     opens org.openjfx.hellofx to javafx.fxml;
     exports org.openjfx.hellofx;
