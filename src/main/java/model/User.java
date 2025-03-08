@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -92,5 +92,5 @@ public class User implements Serializable{
         return "User{id=" + userId + ", username='" + userName + "'}";
     }
 
-
+    
 }
