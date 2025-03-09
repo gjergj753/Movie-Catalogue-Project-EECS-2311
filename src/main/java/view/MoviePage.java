@@ -34,9 +34,9 @@ public class MoviePage extends JFrame {
 //        	}
 //        });
         
-        JButton btnNewButton = new JButton("Back");
-        btnNewButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-        btnNewButton.addActionListener(new ActionListener() {
+        JButton backBtn = new JButton("Back");
+        backBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+        backBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
@@ -75,7 +75,7 @@ public class MoviePage extends JFrame {
         			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
         				.addGroup(gl_panel.createSequentialGroup()
         					.addContainerGap()
-        					.addComponent(btnNewButton))
+        					.addComponent(backBtn))
         				.addGroup(gl_panel.createSequentialGroup()
         					.addGap(31)
         					.addComponent(posterButton, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
@@ -105,7 +105,7 @@ public class MoviePage extends JFrame {
         	gl_panel.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_panel.createSequentialGroup()
         			.addContainerGap()
-        			.addComponent(btnNewButton)
+        			.addComponent(backBtn)
         			.addGap(72)
         			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
         				.addGroup(gl_panel.createSequentialGroup()
@@ -132,6 +132,16 @@ public class MoviePage extends JFrame {
         			.addContainerGap(158, Short.MAX_VALUE))
         );
         panel.setLayout(gl_panel);
+        
+        backBtn.addActionListener(this::handleLogin);
+        
+        setVisible(true);
 		
 	}
+	
+	private void handleLogin(ActionEvent e) {
+		dispose();
+		new MovieMainMenu();
+	}
+	
 }
