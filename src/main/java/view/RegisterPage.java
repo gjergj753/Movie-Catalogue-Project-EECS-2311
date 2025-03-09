@@ -4,6 +4,8 @@ import javax.swing.*;
 import main.java.model.User;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class RegisterPage extends JFrame {
     private JTextField usernameField;
@@ -11,27 +13,85 @@ public class RegisterPage extends JFrame {
     private JButton registerButton, backButton;
 
     public RegisterPage() {
+    	setForeground(new Color(255, 255, 255));
         setTitle("Create Account");
-        setSize(300, 200);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        getContentPane().setLayout(null);
 
-        JPanel panel = new JPanel(new GridLayout(4, 1, 10, 10));
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(221, 230, 237));
+        panel.setBounds(0, 0, 584, 361);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        getContentPane().add(panel);
+
+        JLabel usernameLabel = new JLabel("Username");
+        usernameLabel.setForeground(new Color(39, 55, 77));
+        usernameLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 
         usernameField = new JTextField();
+        usernameField.setAlignmentX(Component.LEFT_ALIGNMENT);
+        usernameField.setColumns(10);
+
+        JLabel passwordLabel = new JLabel("Password");
+        passwordLabel.setForeground(new Color(39, 55, 77));
+        passwordLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+
         passwordField = new JPasswordField();
+        passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         registerButton = new JButton("Register");
-        backButton = new JButton("Back to Login");
+        registerButton.setBackground(new Color(39, 55, 77));
+        registerButton.setForeground(new Color(221, 230, 237));
+        registerButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 11));
 
-        panel.add(new JLabel("Username:"));
-        panel.add(usernameField);
-        panel.add(new JLabel("Password:"));
-        panel.add(passwordField);
-        panel.add(registerButton);
-        panel.add(backButton);
+        backButton = new JButton("Have an account? Log In");
+        backButton.setBackground(new Color(39, 55, 77));
+        backButton.setForeground(new Color(221, 230, 237));
+        backButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 11));
 
-        add(panel);
+        JLabel lblNewLabel_2 = new JLabel("Create Account");
+        lblNewLabel_2.setForeground(new Color(39, 55, 77));
+        lblNewLabel_2.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
+        GroupLayout gl_panel = new GroupLayout(panel);
+        gl_panel.setHorizontalGroup(
+        	gl_panel.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(gl_panel.createSequentialGroup()
+        			.addGap(78)
+        			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+        				.addComponent(registerButton, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        				.addComponent(backButton, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        				.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+        					.addComponent(usernameField, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        					.addComponent(usernameLabel, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(passwordLabel, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)))
+        			.addGap(66))
+        		.addGroup(gl_panel.createSequentialGroup()
+        			.addContainerGap(215, Short.MAX_VALUE)
+        			.addComponent(lblNewLabel_2)
+        			.addGap(202))
+        );
+        gl_panel.setVerticalGroup(
+        	gl_panel.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_panel.createSequentialGroup()
+        			.addComponent(lblNewLabel_2)
+        			.addGap(18)
+        			.addComponent(usernameLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(passwordLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addComponent(registerButton, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addComponent(backButton, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(41, Short.MAX_VALUE))
+        );
+        panel.setLayout(gl_panel);
 
         registerButton.addActionListener(this::handleRegister);
         backButton.addActionListener(e -> {
