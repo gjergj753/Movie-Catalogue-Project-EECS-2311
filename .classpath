@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-23">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Rythem Ghimire/Documents/GitHub/Movie-Catalogue-Project-EECS-2311/lib/mysql-connector-j-8.0.33.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rythem Ghimire/Documents/GitHub/Movie-Catalogue-Project-EECS-2311/lib/fontawesomefx-8.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rythem Ghimire/Documents/GitHub/Movie-Catalogue-Project-EECS-2311/lib/jackson-annotations-2.15.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rythem Ghimire/Documents/GitHub/Movie-Catalogue-Project-EECS-2311/lib/jackson-core-2.15.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rythem Ghimire/Documents/GitHub/Movie-Catalogue-Project-EECS-2311/lib/jackson-databind-2.15.0.jar"/>
-	<classpathentry kind="lib" path="com.jgoodies.common_1.8.1.v20240327-0800.jar"/>
-	<classpathentry kind="lib" path="com.jgoodies.forms_1.9.0.v20240327-0800.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rythem Ghimire/Documents/GitHub/Movie-Catalogue-Project-EECS-2311/lib/flatlaf-3.5.4.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-j-8.0.33.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.15.0.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.15.0.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.15.0.jar"/>
+	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
