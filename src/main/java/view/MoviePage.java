@@ -77,9 +77,9 @@ public class MoviePage extends JFrame {
         					.addContainerGap()
         					.addComponent(backBtn))
         				.addGroup(gl_panel.createSequentialGroup()
-        					.addGap(31)
+        					.addGap(48)
         					.addComponent(posterButton, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-        					.addGap(18)
+        					.addGap(66)
         					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
         						.addComponent(descVal, GroupLayout.PREFERRED_SIZE, 769, GroupLayout.PREFERRED_SIZE)
         						.addComponent(descLbl)
@@ -99,7 +99,7 @@ public class MoviePage extends JFrame {
         							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
         								.addComponent(castVal)
         								.addComponent(genresVal))))))
-        			.addContainerGap(119, Short.MAX_VALUE))
+        			.addContainerGap(54, Short.MAX_VALUE))
         );
         gl_panel.setVerticalGroup(
         	gl_panel.createParallelGroup(Alignment.LEADING)
@@ -107,7 +107,7 @@ public class MoviePage extends JFrame {
         			.addContainerGap()
         			.addComponent(backBtn)
         			.addGap(72)
-        			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+        			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
         				.addGroup(gl_panel.createSequentialGroup()
         					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
         						.addComponent(movieNameLbl)
@@ -129,7 +129,7 @@ public class MoviePage extends JFrame {
         					.addGap(18)
         					.addComponent(descVal, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         				.addComponent(posterButton, GroupLayout.PREFERRED_SIZE, 397, GroupLayout.PREFERRED_SIZE))
-        			.addContainerGap(158, Short.MAX_VALUE))
+        			.addContainerGap())
         );
         panel.setLayout(gl_panel);
         
