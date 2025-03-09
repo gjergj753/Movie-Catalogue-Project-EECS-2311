@@ -25,7 +25,7 @@ public class MovieMainMenu extends JFrame {
 
         // Main container
         mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(new Color(230, 240, 255));
+        //mainPanel.setBackground(new Color(230, 240, 255));
 
         showMainMenu();
         add(mainPanel);
@@ -37,11 +37,11 @@ public class MovieMainMenu extends JFrame {
 
         // Top bar (Search)
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        searchPanel.setBackground(new Color(200, 220, 255));
+        //searchPanel.setBackground(new Color(200, 220, 255));
         searchField = new JTextField(20);
         JButton searchButton = new JButton("Search");
-        searchButton.setBackground(new Color(100, 150, 255));
-        searchButton.setForeground(Color.WHITE);
+        //searchButton.setBackground(new Color(100, 150, 255));
+        //searchButton.setForeground(Color.WHITE);
         
         searchPanel.add(new JLabel("Enter your keywords:"));
         searchPanel.add(searchField);
@@ -50,11 +50,11 @@ public class MovieMainMenu extends JFrame {
         // Left sidebar (Filters)
         JPanel filterPanel = new JPanel();
         filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
-        filterPanel.setBackground(new Color(230, 240, 255));
-        filterPanel.setForeground(Color.WHITE);
+        //filterPanel.setBackground(new Color(230, 240, 255));
+        //filterPanel.setForeground(Color.WHITE);
 
         JLabel genreLabel = new JLabel("Genres");
-        genreLabel.setForeground(new Color(50, 100, 200));
+        //genreLabel.setForeground(new Color(50, 100, 200));
         filterPanel.add(genreLabel);
 
         String[] genres = {"Action", "Comedy", "Drama", "Science Fiction", "Fantasy", "Mystery"};
@@ -62,8 +62,8 @@ public class MovieMainMenu extends JFrame {
 
         for (String genre : genres) {
             JButton genreButton = new JButton(genre);
-            genreButton.setBackground(new Color(200, 220, 255));
-            genreButton.setForeground(new Color(50, 100, 200));
+            //genreButton.setBackground(new Color(200, 220, 255));
+            //genreButton.setForeground(new Color(50, 100, 200));
             genreButton.setFocusPainted(false);
             genreButton.setMaximumSize(buttonSize);
             genreButton.setMinimumSize(buttonSize);
@@ -81,8 +81,8 @@ public class MovieMainMenu extends JFrame {
 
         // Show All button
         JButton showAllButton = new JButton("Show All");
-        showAllButton.setBackground(new Color(180, 200, 255));
-        showAllButton.setForeground(new Color(50, 100, 200));
+        //showAllButton.setBackground(new Color(180, 200, 255));
+        //showAllButton.setForeground(new Color(50, 100, 200));
         showAllButton.setFocusPainted(false);
         showAllButton.setMaximumSize(buttonSize);
         showAllButton.setMinimumSize(buttonSize);
@@ -93,7 +93,7 @@ public class MovieMainMenu extends JFrame {
         
         // Movie grid with ScrollPane
         movieGrid = new JPanel(new GridLayout(0, 3, 10, 10));
-        movieGrid.setBackground(new Color(230, 240, 255));
+        //movieGrid.setBackground(new Color(230, 240, 255));
         
         JScrollPane scrollPane = new JScrollPane(movieGrid);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -127,14 +127,14 @@ public class MovieMainMenu extends JFrame {
         for (Movie movie : movies) {
             JPanel moviePanel = new JPanel(new BorderLayout());
             moviePanel.setPreferredSize(new Dimension(300, 150));
-            moviePanel.setBackground(new Color(200, 220, 255));
-            moviePanel.setBorder(BorderFactory.createLineBorder(new Color(50, 100, 200)));
+            //moviePanel.setBackground(new Color(200, 220, 255));
+            //moviePanel.setBorder(BorderFactory.createLineBorder(new Color(50, 100, 200)));
             
             JLabel poster = new JLabel("<html><center>" + movie.getTitle() + "<br>(" + movie.getReleaseDate() + ")</center></html>", SwingConstants.CENTER);
             poster.setForeground(Color.BLACK);
             
             JLabel rating = new JLabel("⭐ " + movie.getRating(), SwingConstants.CENTER);
-            rating.setForeground(new Color(50, 100, 200));
+            //rating.setForeground(new Color(50, 100, 200));
             
             moviePanel.add(poster, BorderLayout.CENTER);
             moviePanel.add(rating, BorderLayout.SOUTH);

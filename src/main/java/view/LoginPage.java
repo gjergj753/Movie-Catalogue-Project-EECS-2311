@@ -21,13 +21,13 @@ public class LoginPage extends JFrame {
         getContentPane().setLayout(null);
 
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(221, 230, 237));
+        //panel.setBackground(new Color(221, 230, 237));
         panel.setBounds(0, 0, 584, 361);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         getContentPane().add(panel);
 
         JLabel usernameLabel = new JLabel("Username");
-        usernameLabel.setForeground(new Color(39, 55, 77));
+        //usernameLabel.setForeground(new Color(39, 55, 77));
         usernameLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 
         usernameField = new JTextField();
@@ -35,24 +35,24 @@ public class LoginPage extends JFrame {
         usernameField.setColumns(10);
 
         JLabel passwordLabel = new JLabel("Password");
-        passwordLabel.setForeground(new Color(39, 55, 77));
+        //passwordLabel.setForeground(new Color(39, 55, 77));
         passwordLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 
         passwordField = new JPasswordField();
         passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         loginButton = new JButton("Log In");
-        loginButton.setBackground(new Color(39, 55, 77));
-        loginButton.setForeground(new Color(221, 230, 237));
+        //loginButton.setBackground(new Color(39, 55, 77));
+        //loginButton.setForeground(new Color(221, 230, 237));
         loginButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 11));
 
         registerButton = new JButton("Don't have an account? Register");
-        registerButton.setBackground(new Color(39, 55, 77));
-        registerButton.setForeground(new Color(221, 230, 237));
+        //registerButton.setBackground(new Color(39, 55, 77));
+        //registerButton.setForeground(new Color(221, 230, 237));
         registerButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 11));
 
         JLabel lblNewLabel_2 = new JLabel("Log In");
-        lblNewLabel_2.setForeground(new Color(39, 55, 77));
+        //lblNewLabel_2.setForeground(new Color(39, 55, 77));
         lblNewLabel_2.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
         GroupLayout gl_panel = new GroupLayout(panel);
         gl_panel.setHorizontalGroup(

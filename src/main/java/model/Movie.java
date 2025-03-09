@@ -109,7 +109,7 @@ public class Movie implements Serializable {
         return movies;
     }
 
-    // 🚀 Fetch a single movie by ID
+    //  Fetch a single movie by ID
     public static Movie getMovieById(int movieId) {
         String query = "SELECT id, title, genres, release_date, vote_average, overview FROM tmdb_5000_movies WHERE id = ?";
         ObjectMapper objectMapper = new ObjectMapper();

@@ -11,7 +11,7 @@ public class UserPage extends JFrame {
     public UserPage(String username) {
         this.username = username;
         setTitle("User Profile");
-        setSize(600, 400);
+        setSize(1200, 700);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
