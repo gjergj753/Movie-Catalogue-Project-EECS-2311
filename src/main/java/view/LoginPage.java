@@ -1,7 +1,7 @@
-package view;
+package main.java.view;
 
 import javax.swing.*;
-import model.User;
+import main.java.model.User;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 

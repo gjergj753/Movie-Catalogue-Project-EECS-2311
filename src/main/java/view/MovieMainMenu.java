@@ -1,4 +1,4 @@
-package view;
+package main.java.view;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.stream.Collectors;
-import model.Movie;
+import main.java.model.Movie;
 
 public class MovieMainMenu extends JFrame {
     private JPanel mainPanel;
@@ -121,7 +121,7 @@ public class MovieMainMenu extends JFrame {
         movieGrid.removeAll();
 
         int columns = 3;
-        int rows = (int) Math.ceil(movies.size() / (double) columns);
+        int rows = Math.max(1, (int) Math.ceil((double) movies.size() / columns));
         movieGrid.setLayout(new GridLayout(rows, columns, 10, 10));
 
         for (Movie movie : movies) {

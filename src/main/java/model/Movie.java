@@ -1,6 +1,6 @@
-package model;
+package main.java.model;
 
-import dao.DatabaseConnection;
+import main.java.dao.DatabaseConnection;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
