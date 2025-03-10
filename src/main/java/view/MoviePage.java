@@ -40,6 +40,7 @@ public class MoviePage extends JFrame {
         backBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
         backBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		new MovieMainMenu();
         	}
         });
         
