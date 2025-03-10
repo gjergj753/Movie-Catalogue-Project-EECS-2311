@@ -145,7 +145,10 @@ public class Movie implements Serializable {
             // If JSON contains objects like [{"id": 28, "name": "Action"}]
             JsonNode jsonNode = objectMapper.readTree(genresJson);
             for (JsonNode node : jsonNode) {
-                genres.add(node.get("name").asText());
+                JsonNode nameNode = node.get("name");
+                if (nameNode != null) {
+                    genres.add(nameNode.asText());
+                }
             }
         } else {
             // If JSON is a simple string array like ["Action", "Drama"]

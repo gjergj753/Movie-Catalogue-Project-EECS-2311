@@ -142,7 +142,7 @@ public class MovieMainMenu extends JFrame {
             moviePanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    showMoviePage(movie);
+                    new MoviePage(movie);
                 }
             });
             
@@ -153,39 +153,39 @@ public class MovieMainMenu extends JFrame {
         movieGrid.repaint();
     }
 
-    private void showMoviePage(Movie movie) {
-    	mainPanel.removeAll();
-
-        JLabel titleLabel = new JLabel(movie.getTitle(), SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-
-        JLabel genreLabel = new JLabel("Genres: " + String.join(", ", movie.getGenres()), SwingConstants.CENTER);
-        JLabel ratingLabel = new JLabel("Rating: ⭐ " + movie.getRating(), SwingConstants.CENTER);
-        JLabel releaseLabel = new JLabel("Release Date: " + movie.getReleaseDate(), SwingConstants.CENTER);
-        JTextArea overviewText = new JTextArea(movie.getOverview());
-        overviewText.setWrapStyleWord(true);
-        overviewText.setLineWrap(true);
-        overviewText.setEditable(false);
-        overviewText.setOpaque(false);
-
-        JScrollPane overviewScroll = new JScrollPane(overviewText);
-        overviewScroll.setBorder(null);
-        overviewScroll.setPreferredSize(new Dimension(400, 100));
-
-        JPanel infoPanel = new JPanel(new GridLayout(4, 1));
-        infoPanel.add(genreLabel);
-        infoPanel.add(ratingLabel);
-        infoPanel.add(releaseLabel);
-        infoPanel.add(overviewScroll);
-
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(e -> showMainMenu());
-        
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
-        mainPanel.add(infoPanel, BorderLayout.CENTER);
-        mainPanel.add(backButton, BorderLayout.SOUTH);
-
-        mainPanel.revalidate();
-        mainPanel.repaint();
-    }
+//    private void showMoviePage(Movie movie) {
+//    	mainPanel.removeAll();
+//
+//        JLabel titleLabel = new JLabel(movie.getTitle(), SwingConstants.CENTER);
+//        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+//
+//        JLabel genreLabel = new JLabel("Genres: " + String.join(", ", movie.getGenres()), SwingConstants.CENTER);
+//        JLabel ratingLabel = new JLabel("Rating: ⭐ " + movie.getRating(), SwingConstants.CENTER);
+//        JLabel releaseLabel = new JLabel("Release Date: " + movie.getReleaseDate(), SwingConstants.CENTER);
+//        JTextArea overviewText = new JTextArea(movie.getOverview());
+//        overviewText.setWrapStyleWord(true);
+//        overviewText.setLineWrap(true);
+//        overviewText.setEditable(false);
+//        overviewText.setOpaque(false);
+//
+//        JScrollPane overviewScroll = new JScrollPane(overviewText);
+//        overviewScroll.setBorder(null);
+//        overviewScroll.setPreferredSize(new Dimension(400, 100));
+//
+//        JPanel infoPanel = new JPanel(new GridLayout(4, 1));
+//        infoPanel.add(genreLabel);
+//        infoPanel.add(ratingLabel);
+//        infoPanel.add(releaseLabel);
+//        infoPanel.add(overviewScroll);
+//
+//        JButton backButton = new JButton("Back");
+//        backButton.addActionListener(e -> showMainMenu());
+//        
+//        mainPanel.add(titleLabel, BorderLayout.NORTH);
+//        mainPanel.add(infoPanel, BorderLayout.CENTER);
+//        mainPanel.add(backButton, BorderLayout.SOUTH);
+//
+//        mainPanel.revalidate();
+//        mainPanel.repaint();
+//    }
 }

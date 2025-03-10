@@ -15,7 +15,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class MoviePage extends JFrame {
 	
 	public MoviePage() {
-		
+	}
+	
+	public MoviePage(Movie movie) {
 		//setForeground(new Color(255, 255, 255));
         setTitle("Movie Catalogue");
         setSize(1200, 700);
@@ -41,10 +43,10 @@ public class MoviePage extends JFrame {
         	}
         });
         
-        JLabel movieNameLbl = new JLabel("Movie Name");
+        JLabel movieNameLbl = new JLabel(movie.getTitle());
         movieNameLbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
         
-        JLabel movieYearLbl = new JLabel("Year");
+        JLabel movieYearLbl = new JLabel(movie.getReleaseDate().toString());
         movieYearLbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
         
         JLabel ratingLbl = new JLabel("Rating:");
@@ -59,13 +61,13 @@ public class MoviePage extends JFrame {
         JLabel descLbl = new JLabel("Description:");
         descLbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
         
-        JLabel ratingVal = new JLabel("ratingVal");
+        JLabel ratingVal = new JLabel(""+movie.getRating());
         
-        JLabel genresVal = new JLabel("genresVal");
+        JLabel genresVal = new JLabel(String.join(", ", movie.getGenres()));
         
         JLabel castVal = new JLabel("castVal");
         
-        JLabel descVal = new JLabel("<html>" + "Desc" + "</html>");
+        JLabel descVal = new JLabel("<html>" + movie.getOverview() + "</html>");
         descVal.setVerticalAlignment(SwingConstants.TOP);
         descVal.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
         GroupLayout gl_panel = new GroupLayout(panel);
@@ -136,9 +138,8 @@ public class MoviePage extends JFrame {
         backBtn.addActionListener(this::handleLogin);
         
         setVisible(true);
-		
 	}
-	
+
 	private void handleLogin(ActionEvent e) {
 		dispose();
 		new MovieMainMenu();
