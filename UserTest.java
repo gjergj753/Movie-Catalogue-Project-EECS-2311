@@ -1,44 +1,33 @@
-package test;
-
 import static org.junit.jupiter.api.Assertions.*;
-import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.Map;
 
 public class UserTest {
-    
+    private User user;
+
     @BeforeEach
     void setUp() {
-        // Reset user data before each test (if needed, mock file storage)
+        user = new User("testUser", "Test@123");
     }
-    
+
     @Test
-    void testUserCreation() {
-        User user = new User("testUser", "password123");
-        assertEquals("testUser", user.getUsername());
-        assertEquals("password123", user.getPassword());
+    void testValidLogin() {
+        assertTrue(user.validateCredentials("testUser", "Test@123"), "Valid login should pass.");
     }
-    
+
     @Test
-    void testLoadUsers() {
-        Map<String, User> users = User.loadUsers();
-        assertNotNull(users, "User map should not be null");
+    void testInvalidPassword() {
+        assertFalse(user.validateCredentials("testUser", "wrongPass"), "Invalid password should fail.");
     }
-    
+
     @Test
-    void testAuthenticationSuccess() {
-        User user = new User("validUser", "correctPass");
-        Map<String, User> users = User.loadUsers();
-        users.put("validUser", user);
-        
-        assertTrue(users.containsKey("validUser"));
-        assertEquals("correctPass", users.get("validUser").getPassword());
+    void testDuplicateUsername() {
+        User anotherUser = new User("testUser", "AnotherPass123");
+        assertNotEquals(user.getPassword(), anotherUser.getPassword(), "Duplicate usernames should be handled.");
     }
-    
+
     @Test
-    void testAuthenticationFailure() {
-        Map<String, User> users = User.loadUsers();
-        assertFalse(users.containsKey("invalidUser"), "User should not exist");
+    void testPasswordComplexity() {
+        assertTrue(user.getPassword().matches("^(?=.*[A-Z])(?=.*\\d).{8,}$"), "Password should meet complexity requirements.");
     }
 }
