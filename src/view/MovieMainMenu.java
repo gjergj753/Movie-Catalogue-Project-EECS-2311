@@ -45,34 +45,88 @@ public class MovieMainMenu extends JFrame {
         }
     }
 
+    private void setupSidePanel(JPanel filterPanel) {
+        JButton genreToggleButton = new JButton("Genres");
+        genreToggleButton.setBackground(new Color(30, 32, 34));
+        genreToggleButton.setForeground(new Color(240, 245, 249));
+        genreToggleButton.setFocusPainted(false);
+
+        JPanel genrePanel = new JPanel();
+        genrePanel.setLayout(new BoxLayout(genrePanel, BoxLayout.Y_AXIS));
+        genrePanel.setBackground(new Color(240, 245, 249));
+        genrePanel.setVisible(false);
+
+        String[] genres = {"Action", "Comedy", "Drama", "Science Fiction", "Fantasy", "Mystery"};
+        Dimension buttonSize = new Dimension(150, 40);
+
+        for (String genre : genres) {
+            JButton genreButton = new JButton(genre);
+            genreButton.setBackground(new Color(30, 32, 34));
+            genreButton.setForeground(new Color(240, 245, 249));
+            genreButton.setFocusPainted(false);
+            genreButton.setMaximumSize(buttonSize);
+            genreButton.setMinimumSize(buttonSize);
+            genreButton.setPreferredSize(buttonSize);
+            genrePanel.add(genreButton);
+
+            genreButton.addActionListener(e -> {
+                List<Movie> filteredMovies = allMovies.stream()
+                        .filter(movie -> movie.getGenres().contains(genre))
+                        .collect(Collectors.toList());
+                displayMovies(filteredMovies);
+            });
+        }
+
+        // Show All button
+        JButton showAllButton = new JButton("Show All");
+        showAllButton.setBackground(new Color(30, 32, 34));
+        showAllButton.setForeground(new Color(240, 245, 249));
+        showAllButton.setFocusPainted(false);
+        showAllButton.setMaximumSize(buttonSize);
+        showAllButton.setMinimumSize(buttonSize);
+        showAllButton.setPreferredSize(buttonSize);
+        genrePanel.add(showAllButton);
+
+        showAllButton.addActionListener(e -> displayMovies(allMovies));
+
+        genreToggleButton.addActionListener(e -> genrePanel.setVisible(!genrePanel.isVisible()));
+
+        filterPanel.add(genreToggleButton);
+        filterPanel.add(genrePanel);
+    }
+
+    
     private void showMainMenu() {
-    	mainPanel.removeAll();
+        mainPanel.removeAll();
 
         // Top bar (Search + Account Button)
         JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        topBar.setBackground(new Color(200, 220, 255));
-        
+        topBar.setBackground(new Color(240, 245, 249));
+
         searchField = new JTextField(20);
         JButton searchButton = new JButton("Search");
-        searchButton.setBackground(new Color(100, 150, 255));
-        searchButton.setForeground(Color.WHITE);
+        searchButton.setBackground(new Color(30, 32, 34));
+        searchButton.setForeground(new Color(240, 245, 249));
+
+        JLabel enterKeyword = new JLabel("Enter your keywords:");
+        enterKeyword.setForeground(new Color(30, 32, 34));
         
-        topBar.add(new JLabel("Enter your keywords:"));
+        topBar.add(enterKeyword);
         topBar.add(searchField);
         topBar.add(searchButton);
 
         // "My Account" Button (if user is logged in)
         if (currentUser != null) {
             JButton accountButton = new JButton("My Account");
-            accountButton.setBackground(new Color(50, 120, 200));
-            accountButton.setForeground(Color.WHITE);
-            
+            accountButton.setBackground(new Color(30, 32, 34));
+            accountButton.setForeground(new Color(240, 245, 249));
+
             accountButton.addActionListener(e -> new UserPage(currentUser));
-            
+
             JButton logoutButton = new JButton("Logout");
             logoutButton.setBackground(Color.RED);
             logoutButton.setForeground(Color.WHITE);
-            
+
             logoutButton.addActionListener(e -> {
                 dispose();
                 new LoginPage(); // Return to login
@@ -85,48 +139,13 @@ public class MovieMainMenu extends JFrame {
         // Left sidebar (Filters)
         JPanel filterPanel = new JPanel();
         filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
-        filterPanel.setBackground(new Color(230, 240, 255));
+        filterPanel.setBackground(new Color(240, 245, 249));
 
-        JLabel genreLabel = new JLabel("Genres");
-        genreLabel.setForeground(new Color(50, 100, 200));
-        filterPanel.add(genreLabel);
-
-        String[] genres = {"Action", "Comedy", "Drama", "Science Fiction", "Fantasy", "Mystery"};
-        Dimension buttonSize = new Dimension(150, 40);
-
-        for (String genre : genres) {
-            JButton genreButton = new JButton(genre);
-            genreButton.setBackground(new Color(200, 220, 255));
-            genreButton.setForeground(new Color(50, 100, 200));
-            genreButton.setFocusPainted(false);
-            genreButton.setMaximumSize(buttonSize);
-            genreButton.setMinimumSize(buttonSize);
-            genreButton.setPreferredSize(buttonSize);
-            filterPanel.add(genreButton);
-
-            genreButton.addActionListener(e -> {
-                List<Movie> filteredMovies = allMovies.stream()
-                        .filter(movie -> movie.getGenres().contains(genre))
-                        .collect(Collectors.toList());
-                displayMovies(filteredMovies);
-            });
-        }
-
-        // Show All button
-        JButton showAllButton = new JButton("Show All");
-        showAllButton.setBackground(new Color(180, 200, 255));
-        showAllButton.setForeground(new Color(50, 100, 200));
-        showAllButton.setFocusPainted(false);
-        showAllButton.setMaximumSize(buttonSize);
-        showAllButton.setMinimumSize(buttonSize);
-        showAllButton.setPreferredSize(buttonSize);
-        filterPanel.add(showAllButton);
-
-        showAllButton.addActionListener(e -> displayMovies(allMovies));
+        setupSidePanel(filterPanel);
 
         // Movie grid with ScrollPane
         movieGrid = new JPanel(new GridLayout(0, 3, 10, 10));
-        movieGrid.setBackground(new Color(230, 240, 255));
+        movieGrid.setBackground(new Color(240, 245, 249));
 
         JScrollPane scrollPane = new JScrollPane(movieGrid);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -154,7 +173,7 @@ public class MovieMainMenu extends JFrame {
         movieGrid.removeAll();
 
         int columns = 3;
-        int rows = (int) Math.ceil(movies.size() / (double) columns);
+        int rows = Math.max(1, (int) Math.ceil(movies.size() / (double) columns));
         movieGrid.setLayout(new GridLayout(rows, columns, 10, 10));
 
         for (Movie movie : movies) {
@@ -188,37 +207,9 @@ public class MovieMainMenu extends JFrame {
 
     private void showMoviePage(Movie movie) {
     	mainPanel.removeAll();
-
-        JLabel titleLabel = new JLabel(movie.getTitle(), SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-
-        JLabel genreLabel = new JLabel("Genres: " + String.join(", ", movie.getGenres()), SwingConstants.CENTER);
-        JLabel ratingLabel = new JLabel("Rating: ⭐ " + movie.getRating(), SwingConstants.CENTER);
-        JLabel releaseLabel = new JLabel("Release Date: " + movie.getReleaseDate(), SwingConstants.CENTER);
-        JTextArea overviewText = new JTextArea(movie.getOverview());
-        overviewText.setWrapStyleWord(true);
-        overviewText.setLineWrap(true);
-        overviewText.setEditable(false);
-        overviewText.setOpaque(false);
-
-        JScrollPane overviewScroll = new JScrollPane(overviewText);
-        overviewScroll.setBorder(null);
-        overviewScroll.setPreferredSize(new Dimension(400, 100));
-
-        JPanel infoPanel = new JPanel(new GridLayout(4, 1));
-        infoPanel.add(genreLabel);
-        infoPanel.add(ratingLabel);
-        infoPanel.add(releaseLabel);
-        infoPanel.add(overviewScroll);
-
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(e -> showMainMenu());
-        
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
-        mainPanel.add(infoPanel, BorderLayout.CENTER);
-        mainPanel.add(backButton, BorderLayout.SOUTH);
-
+        mainPanel.add(new MoviePage(movie, this::showMainMenu));
         mainPanel.revalidate();
         mainPanel.repaint();
+
     }
 }

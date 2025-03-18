@@ -65,12 +65,12 @@ public class RegisterPage extends JFrame {
         				.addComponent(backButton, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         				.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
         					.addComponent(usernameField, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        					.addComponent(usernameLabel, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
         					.addComponent(passwordLabel, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-        					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)))
+        					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(usernameLabel, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)))
         			.addGap(66))
         		.addGroup(gl_panel.createSequentialGroup()
-        			.addContainerGap(215, Short.MAX_VALUE)
+        			.addContainerGap(216, Short.MAX_VALUE)
         			.addComponent(lblNewLabel_2)
         			.addGap(202))
         );
@@ -90,7 +90,7 @@ public class RegisterPage extends JFrame {
         			.addComponent(registerButton, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
         			.addGap(18)
         			.addComponent(backButton, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(41, Short.MAX_VALUE))
+        			.addContainerGap(42, Short.MAX_VALUE))
         );
         panel.setLayout(gl_panel);
 
