@@ -1,75 +1,122 @@
-package model;
+package view;
 
-import java.io.*;
-import java.util.*;
+import model.Movie;
+import model.User;
 
-public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private static int id = 1;
-    private int userId;
-    private String userName;
-    private String password;
-    private static final String FILE_NAME = "users.dat";
-    private static Map<String, User> users = loadUsers();
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-    // Movie lists
-    private List<Movie> watchedMovies = new ArrayList<>();
-    private List<Movie> planToWatchMovies = new ArrayList<>();
-    private List<Movie> droppedMovies = new ArrayList<>();
-    private List<Movie> favoriteMovies = new ArrayList<>();
+public class MoviePage extends JFrame {
+    private JPanel mainPanel;
+    private JButton favoriteButton;
+    private User currentUser;
+    private Movie currentMovie;
 
-    public User(String userName, String password) {
-        this.userId = id++;
-        this.userName = userName;
-        this.password = password;
+    public MoviePage(User user, Movie movie) {
+        this.currentUser = user;
+        this.currentMovie = movie;
+        
+        setTitle("Movie Details: " + movie.getTitle());
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        
+        JLabel titleLabel = new JLabel("Title: " + movie.getTitle());
+        mainPanel.add(titleLabel);
+        
+        JLabel descriptionLabel = new JLabel("Description: " + movie.getDescription());
+        mainPanel.add(descriptionLabel);
+        
+        // Add "Add to Favorites" button
+        favoriteButton = new JButton("Add to Favorites");
+        favoriteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (currentUser != null && currentMovie != null) {
+                    if (currentUser.addFavoriteMovie(currentMovie)) {
+                        JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " added to your favorites!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " is already in your favorites.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error: Unable to add to favorites.");
+                }
+            }
+        });
+        mainPanel.add(favoriteButton);
+        
+        // Add right-click menu to add to different lists
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem addToWatched = new JMenuItem("Add to Watched");
+        JMenuItem addToPlanToWatch = new JMenuItem("Add to Plan to Watch");
+        JMenuItem addToDropped = new JMenuItem("Add to Dropped");
+        JMenuItem addToFavorites = new JMenuItem("Add to Favorites");
+        
+        popupMenu.add(addToWatched);
+        popupMenu.add(addToPlanToWatch);
+        popupMenu.add(addToDropped);
+        popupMenu.add(addToFavorites);
+        
+        addToWatched.addActionListener(e -> {
+            currentUser.addWatchedMovie(currentMovie);
+            JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " added to Watched list!");
+        });
+        
+        addToPlanToWatch.addActionListener(e -> {
+            currentUser.addPlanToWatchMovie(currentMovie);
+            JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " added to Plan to Watch list!");
+        });
+        
+        addToDropped.addActionListener(e -> {
+            currentUser.addDroppedMovie(currentMovie);
+            JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " added to Dropped list!");
+        });
+        
+        addToFavorites.addActionListener(e -> {
+            if (currentUser.addFavoriteMovie(currentMovie)) {
+                JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " added to Favorites list!");
+            } else {
+                JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " is already in your Favorites.");
+            }
+        });
+        
+        mainPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    showPopupMenu(e);
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    showPopupMenu(e);
+                }
+            }
+
+            private void showPopupMenu(MouseEvent e) {
+                popupMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
+        
+        add(mainPanel, BorderLayout.CENTER);
     }
 
-    // Getters
-    public List<Movie> getWatchedMovies() { return watchedMovies; }
-    public List<Movie> getPlanToWatchMovies() { return planToWatchMovies; }
-    public List<Movie> getDroppedMovies() { return droppedMovies; }
-    public List<Movie> getFavoriteMovies() { return favoriteMovies; }
-
-    // Methods to add movies to lists
-    public void addWatchedMovie(Movie movie) { if (!watchedMovies.contains(movie)) watchedMovies.add(movie); }
-    public void addPlanToWatchMovie(Movie movie) { if (!planToWatchMovies.contains(movie)) planToWatchMovies.add(movie); }
-    public void addDroppedMovie(Movie movie) { if (!droppedMovies.contains(movie)) droppedMovies.add(movie); }
-    
-    public boolean addFavoriteMovie(Movie movie) {
-        if (!favoriteMovies.contains(movie)) {
-            favoriteMovies.add(movie);
-            saveUsers(); // Persist changes
-            return true;
-        }
-        return false;
-    }
-
-    // Methods to remove movies from lists
-    public void removeWatchedMovie(Movie movie) { watchedMovies.remove(movie); }
-    public void removePlanToWatchMovie(Movie movie) { planToWatchMovies.remove(movie); }
-    public void removeDroppedMovie(Movie movie) { droppedMovies.remove(movie); }
-    
-    public boolean removeFavoriteMovie(Movie movie) {
-        boolean removed = favoriteMovies.remove(movie);
-        if (removed) saveUsers(); // Persist changes
-        return removed;
-    }
-
-    // Save users
-    public static void saveUsers() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
-            oos.writeObject(users);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Load users
-    private static Map<String, User> loadUsers() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-            return (Map<String, User>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            return new HashMap<>();
-        }
+    public static void main(String[] args) {
+        // Dummy data for testing
+        User testUser = new User("testUser", "password");
+        Movie testMovie = new Movie("Inception", "A mind-bending thriller");
+        
+        SwingUtilities.invokeLater(() -> {
+            MoviePage moviePage = new MoviePage(testUser, testMovie);
+            moviePage.setVisible(true);
+        });
     }
 }

@@ -63,3 +63,58 @@ public class MoviePage extends JFrame {
         });
     }
 }
+// Create "Add to List" button
+JButton addToListButton = new JButton("Add to List");
+
+// Create the pop-up menu
+JPopupMenu popupMenu = new JPopupMenu();
+JMenuItem watchedItem = new JMenuItem("Watched");
+JMenuItem planToWatchItem = new JMenuItem("Plan to Watch");
+JMenuItem droppedItem = new JMenuItem("Dropped");
+JMenuItem favoriteItem = new JMenuItem("Favorite");
+
+// Add menu items to the pop-up menu
+popupMenu.add(watchedItem);
+popupMenu.add(planToWatchItem);
+popupMenu.add(droppedItem);
+popupMenu.add(favoriteItem);
+
+// Show the pop-up menu when the button is clicked
+addToListButton.addActionListener(e -> {
+    popupMenu.show(addToListButton, addToListButton.getWidth() / 2, addToListButton.getHeight() / 2);
+});
+
+// Define actions for each menu item
+watchedItem.addActionListener(e -> addMovieToList("Watched"));
+planToWatchItem.addActionListener(e -> addMovieToList("PlanToWatch"));
+droppedItem.addActionListener(e -> addMovieToList("Dropped"));
+favoriteItem.addActionListener(e -> addMovieToList("Favorite"));
+
+// Add the button to the panel
+mainPanel.add(addToListButton);
+
+// Method to add movie to the selected list
+private void addMovieToList(String listType) {
+    User currentUser = getCurrentUser(); 
+    Movie currentMovie = getSelectedMovie(); 
+
+    if (currentUser != null && currentMovie != null) {
+        switch (listType) {
+            case "Watched":
+                currentUser.addWatchedMovie(currentMovie);
+                break;
+            case "PlanToWatch":
+                currentUser.addPlanToWatchMovie(currentMovie);
+                break;
+            case "Dropped":
+                currentUser.addDroppedMovie(currentMovie);
+                break;
+            case "Favorite":
+                currentUser.addFavoriteMovie(currentMovie);
+                break;
+        }
+        JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " added to " + listType + " list!");
+    } else {
+        JOptionPane.showMessageDialog(null, "Error: Unable to add movie to list.");
+    }
+}
