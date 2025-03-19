@@ -34,13 +34,26 @@ public class User implements Serializable {
     public void addWatchedMovie(Movie movie) { if (!watchedMovies.contains(movie)) watchedMovies.add(movie); }
     public void addPlanToWatchMovie(Movie movie) { if (!planToWatchMovies.contains(movie)) planToWatchMovies.add(movie); }
     public void addDroppedMovie(Movie movie) { if (!droppedMovies.contains(movie)) droppedMovies.add(movie); }
-    public void addFavoriteMovie(Movie movie) { if (!favoriteMovies.contains(movie)) favoriteMovies.add(movie); }
+    
+    public boolean addFavoriteMovie(Movie movie) {
+        if (!favoriteMovies.contains(movie)) {
+            favoriteMovies.add(movie);
+            saveUsers(); // Persist changes
+            return true;
+        }
+        return false;
+    }
 
     // Methods to remove movies from lists
     public void removeWatchedMovie(Movie movie) { watchedMovies.remove(movie); }
     public void removePlanToWatchMovie(Movie movie) { planToWatchMovies.remove(movie); }
     public void removeDroppedMovie(Movie movie) { droppedMovies.remove(movie); }
-    public void removeFavoriteMovie(Movie movie) { favoriteMovies.remove(movie); }
+    
+    public boolean removeFavoriteMovie(Movie movie) {
+        boolean removed = favoriteMovies.remove(movie);
+        if (removed) saveUsers(); // Persist changes
+        return removed;
+    }
 
     // Save users
     public static void saveUsers() {
