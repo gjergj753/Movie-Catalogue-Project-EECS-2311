@@ -1,120 +1,87 @@
 package view;
 
 import model.Movie;
+import model.Review;
 import model.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MoviePage extends JFrame {
-    private JPanel mainPanel;
-    private JButton favoriteButton;
-    private User currentUser;
-    private Movie currentMovie;
+    private Movie movie;
+    private User user;
 
-    public MoviePage(User user, Movie movie) {
-        this.currentUser = user;
-        this.currentMovie = movie;
-        
-        setTitle("Movie Details: " + movie.getTitle());
+    public MoviePage(Movie movie, User user) {
+        this.movie = movie;
+        this.user = user;
+
+        setTitle(movie.getTitle());
         setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        JPanel topPanel = new JPanel();
+        JLabel titleLabel = new JLabel("Movie: " + movie.getTitle());
+        topPanel.add(titleLabel);
+
+        JPanel centerPanel = new JPanel();
+        JTextArea reviewArea = new JTextArea(5, 40);
+        JButton submitReviewButton = new JButton("Submit Review");
         
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        
-        JLabel titleLabel = new JLabel("Title: " + movie.getTitle());
-        mainPanel.add(titleLabel);
-        
-        JLabel descriptionLabel = new JLabel("Description: " + movie.getDescription());
-        mainPanel.add(descriptionLabel);
-        
-        // Add "Add to Favorites" button
-        favoriteButton = new JButton("Add to Favorites");
-        favoriteButton.addActionListener(new ActionListener() {
+        submitReviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (currentUser != null && currentMovie != null) {
-                    if (currentUser.addFavoriteMovie(currentMovie)) {
-                        JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " added to your favorites!");
-                    } else {
-                        JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " is already in your favorites.");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error: Unable to add to favorites.");
+                String reviewText = reviewArea.getText();
+                if (!reviewText.isEmpty()) {
+                    Review review = new Review(user.getUsername(), reviewText);
+                    movie.addReview(review);
+                    JOptionPane.showMessageDialog(null, "Review submitted successfully!");
+                    reviewArea.setText("");
+                    displayReviews();
                 }
             }
         });
-        mainPanel.add(favoriteButton);
         
-        add(mainPanel, BorderLayout.CENTER);
+        centerPanel.add(new JLabel("Leave a Review:"));
+        centerPanel.add(new JScrollPane(reviewArea));
+        centerPanel.add(submitReviewButton);
+
+        JPanel bottomPanel = new JPanel();
+        JButton addToWatchedButton = new JButton("Add to Watched");
+        JButton addToPlanToWatchButton = new JButton("Plan to Watch");
+        JButton addToDroppedButton = new JButton("Drop");
+        JButton addToFavoritesButton = new JButton("Add to Favorites");
+
+        addToWatchedButton.addActionListener(e -> user.addToWatched(movie));
+        addToPlanToWatchButton.addActionListener(e -> user.addToPlanToWatch(movie));
+        addToDroppedButton.addActionListener(e -> user.addToDropped(movie));
+        addToFavoritesButton.addActionListener(e -> user.addToFavorites(movie));
+
+        bottomPanel.add(addToWatchedButton);
+        bottomPanel.add(addToPlanToWatchButton);
+        bottomPanel.add(addToDroppedButton);
+        bottomPanel.add(addToFavoritesButton);
+        
+        add(topPanel, BorderLayout.NORTH);
+        add(centerPanel, BorderLayout.CENTER);
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        displayReviews();
     }
 
-    public static void main(String[] args) {
-        // Dummy data for testing
-        User testUser = new User("testUser", "password");
-        Movie testMovie = new Movie("Inception", "A mind-bending thriller");
+    private void displayReviews() {
+        List<Review> reviews = movie.getReviews();
+        JTextArea reviewDisplayArea = new JTextArea(10, 50);
+        reviewDisplayArea.setEditable(false);
         
-        SwingUtilities.invokeLater(() -> {
-            MoviePage moviePage = new MoviePage(testUser, testMovie);
-            moviePage.setVisible(true);
-        });
-    }
-}
-// Create "Add to List" button
-JButton addToListButton = new JButton("Add to List");
-
-// Create the pop-up menu
-JPopupMenu popupMenu = new JPopupMenu();
-JMenuItem watchedItem = new JMenuItem("Watched");
-JMenuItem planToWatchItem = new JMenuItem("Plan to Watch");
-JMenuItem droppedItem = new JMenuItem("Dropped");
-JMenuItem favoriteItem = new JMenuItem("Favorite");
-
-// Add menu items to the pop-up menu
-popupMenu.add(watchedItem);
-popupMenu.add(planToWatchItem);
-popupMenu.add(droppedItem);
-popupMenu.add(favoriteItem);
-
-// Show the pop-up menu when the button is clicked
-addToListButton.addActionListener(e -> {
-    popupMenu.show(addToListButton, addToListButton.getWidth() / 2, addToListButton.getHeight() / 2);
-});
-
-// Define actions for each menu item
-watchedItem.addActionListener(e -> addMovieToList("Watched"));
-planToWatchItem.addActionListener(e -> addMovieToList("PlanToWatch"));
-droppedItem.addActionListener(e -> addMovieToList("Dropped"));
-favoriteItem.addActionListener(e -> addMovieToList("Favorite"));
-
-// Add the button to the panel
-mainPanel.add(addToListButton);
-
-// Method to add movie to the selected list
-private void addMovieToList(String listType) {
-    User currentUser = getCurrentUser(); 
-    Movie currentMovie = getSelectedMovie(); 
-
-    if (currentUser != null && currentMovie != null) {
-        switch (listType) {
-            case "Watched":
-                currentUser.addWatchedMovie(currentMovie);
-                break;
-            case "PlanToWatch":
-                currentUser.addPlanToWatchMovie(currentMovie);
-                break;
-            case "Dropped":
-                currentUser.addDroppedMovie(currentMovie);
-                break;
-            case "Favorite":
-                currentUser.addFavoriteMovie(currentMovie);
-                break;
+        StringBuilder reviewsText = new StringBuilder("Reviews:\n");
+        for (Review review : reviews) {
+            reviewsText.append(review.getUsername()).append(": ").append(review.getText()).append("\n");
         }
-        JOptionPane.showMessageDialog(null, currentMovie.getTitle() + " added to " + listType + " list!");
-    } else {
-        JOptionPane.showMessageDialog(null, "Error: Unable to add movie to list.");
+        reviewDisplayArea.setText(reviewsText.toString());
+        add(new JScrollPane(reviewDisplayArea), BorderLayout.EAST);
+        validate();
     }
 }
