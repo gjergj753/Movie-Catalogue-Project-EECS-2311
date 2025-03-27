@@ -1,9 +1,7 @@
+// Movie.java
 package model;
 
 import dao.DatabaseConnection;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -11,46 +9,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Movie implements Serializable {
     private int movieId;
     private String title;
     private List<String> genres;
-    private String releaseDate; // SQLite stores dates as TEXT
+    private String releaseDate;
     private float rating;
     private String overview;
+    private String posterUrl;
 
-    // Constructor
     public Movie() {}
 
-    public Movie(int movieId, String title, List<String> genres, String releaseDate, float rating, String overview) {
+    public Movie(int movieId, String title, List<String> genres, String releaseDate, float rating, String overview, String posterUrl) {
         this.movieId = movieId;
         this.title = title;
         this.genres = genres;
         this.releaseDate = releaseDate;
         this.rating = rating;
         this.overview = overview;
+        this.posterUrl = posterUrl;
     }
 
-    // Getters and Setters
     public int getMovieId() { return movieId; }
     public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
     public List<String> getGenres() { return genres; }
-    public void setGenres(List<String> genres) { this.genres = genres; }
     public String getReleaseDate() { return releaseDate; }
-    public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
     public float getRating() { return rating; }
-    public void setRating(float rating) { this.rating = rating; }
     public String getOverview() { return overview; }
-    public void setOverview(String overview) { this.overview = overview; }
+    public String getPosterUrl() { return posterUrl; }
 
-    // 🚀 Fetch all movies from SQLite
     public static List<Movie> getAllMovies() {
         List<Movie> movies = new ArrayList<>();
-        String query = "SELECT id, title, genres, release_date, vote_average, overview FROM movies"; // Ensure table name is correct
-        ObjectMapper objectMapper = new ObjectMapper();
+        String query = "SELECT id, title, genre_ids, release_date, vote_average, overview, poster_path FROM movies";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
@@ -59,26 +53,23 @@ public class Movie implements Serializable {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                String genresJson = rs.getString("genres"); // Stored as TEXT
-                String releaseDate = rs.getString("release_date"); // SQLite stores as TEXT
+                String genreIds = rs.getString("genre_ids");
+                String releaseDate = rs.getString("release_date");
                 float rating = rs.getFloat("vote_average");
                 String overview = rs.getString("overview");
+                String posterUrl = rs.getString("poster_path");
 
-                // Convert JSON genres into List<String>
-                List<String> genres = parseGenres(genresJson, objectMapper);
-
-                movies.add(new Movie(id, title, genres, releaseDate, rating, overview));
+                List<String> genres = parseGenres(genreIds);
+                movies.add(new Movie(id, title, genres, releaseDate, rating, overview, posterUrl));
             }
-        } catch (SQLException | com.fasterxml.jackson.core.JsonProcessingException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return movies;
     }
 
-    // 🚀 Fetch a single movie by ID
     public static Movie getMovieById(int movieId) {
-        String query = "SELECT id, title, genres, release_date, vote_average, overview FROM movies WHERE id = ?"; // Fixed table name
-        ObjectMapper objectMapper = new ObjectMapper();
+        String query = "SELECT id, title, genre_ids, release_date, vote_average, overview, poster_path FROM movies WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -88,45 +79,32 @@ public class Movie implements Serializable {
 
             if (rs.next()) {
                 String title = rs.getString("title");
-                String genresJson = rs.getString("genres");
+                String genreIds = rs.getString("genre_ids");
                 String releaseDate = rs.getString("release_date");
                 float rating = rs.getFloat("vote_average");
                 String overview = rs.getString("overview");
+                String posterUrl = rs.getString("poster_path");
 
-                List<String> genres = parseGenres(genresJson, objectMapper);
-
-                return new Movie(movieId, title, genres, releaseDate, rating, overview);
+                List<String> genres = parseGenres(genreIds);
+                return new Movie(movieId, title, genres, releaseDate, rating, overview, posterUrl);
             }
-        } catch (SQLException | com.fasterxml.jackson.core.JsonProcessingException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    // Helper method to parse genres JSON correctly
-    private static List<String> parseGenres(String genresJson, ObjectMapper objectMapper) throws com.fasterxml.jackson.core.JsonProcessingException {
+    private static List<String> parseGenres(String genreIds) {
         List<String> genres = new ArrayList<>();
-        if (genresJson != null && genresJson.startsWith("[") && genresJson.contains("{")) {
-            // JSON format: [{"id": 28, "name": "Action"}]
-            JsonNode jsonNode = objectMapper.readTree(genresJson);
-            for (JsonNode node : jsonNode) {
-                genres.add(node.get("name").asText());
+        if (genreIds != null && !genreIds.isEmpty()) {
+            // Clean up and parse the genre list from the string format ['Genre1', 'Genre2']
+            genreIds = genreIds.replace("[", "").replace("]", "").replace("'", "").trim();
+            String[] genreArray = genreIds.split(",\s*");
+            for (String genre : genreArray) {
+                genres.add(genre);
             }
-        } else if (genresJson != null) {
-            // JSON is a simple string array: ["Action", "Drama"]
-            genres = objectMapper.readValue(genresJson, new TypeReference<List<String>>() {});
         }
         return genres;
-    }
-
-    public static List<Movie> getMoviesByGenre(String genre) {
-        List<Movie> filteredMovies = new ArrayList<>();
-        for (Movie movie : getAllMovies()) {
-            if (movie.getGenres().contains(genre)) {
-                filteredMovies.add(movie);
-            }
-        }
-        return filteredMovies;
     }
 
     @Override
@@ -135,9 +113,10 @@ public class Movie implements Serializable {
                 "movieId=" + movieId +
                 ", title='" + title + '\'' +
                 ", genres=" + genres +
-                ", releaseDate=" + (releaseDate != null ? releaseDate : "N/A") +
+                ", releaseDate='" + (releaseDate != null ? releaseDate : "N/A") + '\'' +
                 ", rating=" + rating +
                 ", overview='" + overview + '\'' +
+                ", posterUrl='" + posterUrl + '\'' +
                 '}';
     }
 }
