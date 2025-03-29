@@ -27,6 +27,7 @@ public class MovieMainMenu extends JFrame {
         setSize(1200, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        //setResizable(false);
 
         // Fetch all movies
         allMovies = Movie.getAllMovies();
@@ -199,7 +200,7 @@ public class MovieMainMenu extends JFrame {
 
     private void showMoviePage(Movie movie) {
         mainPanel.removeAll();
-        mainPanel.add(new MoviePage(movie, this::showMainMenu));
+        mainPanel.add(new MoviePage(movie, this::showMainMenu,currentUser));
         mainPanel.revalidate();
         mainPanel.repaint();
     }

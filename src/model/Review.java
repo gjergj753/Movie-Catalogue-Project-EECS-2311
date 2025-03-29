@@ -7,11 +7,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Review implements Serializable {
-    private static int id = 1;
+    private static int id;
     private int reviewId;
     private int userId;
     private int movieId;
@@ -29,6 +31,10 @@ public class Review implements Serializable {
         this.rating = rating;
         this.comment = comment;
         this.createdAt = LocalDateTime.now();
+    }
+    
+    static {
+        id = reviews.keySet().stream().max(Integer::compare).orElse(0) + 1;
     }
 
     public int getReviewId() {
@@ -86,6 +92,16 @@ public class Review implements Serializable {
 
     public static Review getReview(int reviewId) {
         return reviews.get(reviewId);
+    }
+    
+    public static List<Review> getReviewsByMovieId(int movieId) {
+        List<Review> movieReviews = new ArrayList<>();
+        for (Review review : reviews.values()) {
+            if (review.getMovieId() == movieId) {
+                movieReviews.add(review);
+            }
+        }
+        return movieReviews;
     }
 
     private static void saveReviews() {

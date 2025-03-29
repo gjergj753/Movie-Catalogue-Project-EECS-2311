@@ -41,6 +41,7 @@ public class Movie implements Serializable {
     public float getRating() { return rating; }
     public String getOverview() { return overview; }
     public String getPosterUrl() { return posterUrl; }
+    
 
     public static List<Movie> getAllMovies() {
         List<Movie> movies = new ArrayList<>();
@@ -93,6 +94,11 @@ public class Movie implements Serializable {
         }
         return null;
     }
+    
+    public List<Review> getReviews() {
+        return Review.getReviewsByMovieId(this.movieId);
+    }
+
 
     private static List<String> parseGenres(String genreIds) {
         List<String> genres = new ArrayList<>();

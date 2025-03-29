@@ -86,6 +86,19 @@ public class User implements Serializable{
             return new HashMap<>(); // Return empty map if file doesn't exist or error occurs
         }
     }
+    
+    public static User getUserByUsername(String username) {
+        return users.get(username);
+    }
+
+    public static User getUserById(int userId) {
+        for (User user : users.values()) {
+            if (user.getId() == userId) {
+                return user;
+            }
+        }
+        return null;
+    }
 
     public static boolean userExists(String username) {
         return users.containsKey(username);
