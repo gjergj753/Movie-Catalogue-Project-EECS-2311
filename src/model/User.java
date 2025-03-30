@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class User implements Serializable{
@@ -15,6 +17,7 @@ public class User implements Serializable{
     private int userId;
     private String userName;
     private String password;
+    private Map<String, List<Integer>> movieLists = new HashMap<>();
 
     private static final String FILE_NAME = "users.dat";
     private static Map<String, User> users = loadUsers();
@@ -110,6 +113,28 @@ public class User implements Serializable{
             saveUsers(); // Save updated list to users.dat
         }
     }
+    
+    
+    public Map<String, List<Integer>> getMovieLists() {
+        return movieLists;
+    }
+
+    public void addToList(String listType, int movieId) {
+        movieLists.computeIfAbsent(listType, k -> new ArrayList<>()).add(movieId);
+        User.saveUsers();
+    }
+
+    public void removeFromList(String listType, int movieId) {
+        if (movieLists.containsKey(listType)) {
+            movieLists.get(listType).remove(Integer.valueOf(movieId));
+            User.saveUsers();
+        }
+    }
+
+    public List<Integer> getList(String listType) {
+        return movieLists.getOrDefault(listType, new ArrayList<>());
+    }
+    
     
     @Override
     public String toString() {

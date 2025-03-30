@@ -32,6 +32,14 @@ public class MoviePage extends JPanel {
             JOptionPane.showMessageDialog(this, "User not found. Please log in again.", "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("User not found for username: " + username);
         }
+        
+        JLabel descVal = new JLabel("<html>" + (movie.getOverview() != null && !movie.getOverview().isEmpty() ? movie.getOverview() : "No Overview Available") + "</html>");
+        descVal.setForeground(new Color(240, 245, 249));
+        descVal.setVerticalAlignment(SwingConstants.TOP);
+        descVal.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+
+        // Create the list buttons panel
+        JPanel listButtonsPanel = createListButtonsPanel(user, movie.getMovieId());
 
         JButton backBtn = new JButton("Back");
         backBtn.setForeground(new Color(30, 32, 34));
@@ -65,10 +73,6 @@ public class MoviePage extends JPanel {
         JLabel genresVal = new JLabel(!movie.getGenres().isEmpty() ? String.join(", ", movie.getGenres()) : "N/A");
         genresVal.setForeground(new Color(240, 245, 249));
 
-        JLabel descVal = new JLabel("<html>" + (movie.getOverview() != null && !movie.getOverview().isEmpty() ? movie.getOverview() : "No Overview Available") + "</html>");
-        descVal.setForeground(new Color(240, 245, 249));
-        descVal.setVerticalAlignment(SwingConstants.TOP);
-        descVal.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 
         // Poster Image
         JLabel posterLabel = new JLabel();
@@ -113,76 +117,79 @@ public class MoviePage extends JPanel {
 
         GroupLayout gl_panel = new GroupLayout(this);
         gl_panel.setHorizontalGroup(
-        	gl_panel.createParallelGroup(Alignment.LEADING)
-        		.addGroup(gl_panel.createSequentialGroup()
-        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        			.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-        				.addGroup(gl_panel.createSequentialGroup()
-        					.addComponent(backBtn)
-        					.addGap(248))
-        				.addGroup(gl_panel.createSequentialGroup()
-        					.addComponent(posterLabel, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-        					.addGap(47)))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-        				.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 605, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(gl_panel.createSequentialGroup()
-        					.addComponent(movieNameLbl)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(movieYearLbl))
-        				.addGroup(gl_panel.createSequentialGroup()
-        					.addComponent(ratingLbl)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(ratingVal))
-        				.addGroup(gl_panel.createSequentialGroup()
-        					.addComponent(genresLbl)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(genresVal))
-        				.addComponent(descLbl)
-        				.addComponent(descVal, GroupLayout.PREFERRED_SIZE, 605, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(reviewLbl)
-        				.addGroup(gl_panel.createSequentialGroup()
-        					.addComponent(reviewField, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(ratingDropdown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(submitBtn)))
-        			.addContainerGap(271, Short.MAX_VALUE))
+            gl_panel.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel.createSequentialGroup()
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+                        .addGroup(gl_panel.createSequentialGroup()
+                            .addComponent(backBtn)
+                            .addGap(248))
+                        .addGroup(gl_panel.createSequentialGroup()
+                            .addComponent(posterLabel, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+                            .addGap(47)))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+                        .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 605, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(gl_panel.createSequentialGroup()
+                            .addComponent(movieNameLbl)
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
+                            .addComponent(movieYearLbl))
+                        .addGroup(gl_panel.createSequentialGroup()
+                            .addComponent(ratingLbl)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(ratingVal))
+                        .addGroup(gl_panel.createSequentialGroup()
+                            .addComponent(genresLbl)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(genresVal))
+                        .addComponent(descLbl)
+                        .addComponent(descVal, GroupLayout.PREFERRED_SIZE, 605, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(listButtonsPanel)
+                        .addComponent(reviewLbl)
+                        .addGroup(gl_panel.createSequentialGroup()
+                            .addComponent(reviewField, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(ratingDropdown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(submitBtn)))
+                    .addContainerGap(271, Short.MAX_VALUE))
         );
         gl_panel.setVerticalGroup(
-        	gl_panel.createParallelGroup(Alignment.LEADING)
-        		.addGroup(gl_panel.createSequentialGroup()
-        			.addContainerGap()
-        			.addComponent(backBtn)
-        			.addGap(41)
-        			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-        				.addComponent(posterLabel, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(gl_panel.createSequentialGroup()
-        					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-        						.addComponent(movieYearLbl)
-        						.addComponent(movieNameLbl))
-        					.addGap(18)
-        					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(ratingLbl)
-        						.addComponent(ratingVal))
-        					.addGap(18)
-        					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-        						.addComponent(genresLbl)
-        						.addComponent(genresVal))
-        					.addGap(18)
-        					.addComponent(descLbl)
-        					.addGap(18)
-        					.addComponent(descVal, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(reviewLbl)))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-        				.addComponent(reviewField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(ratingDropdown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(submitBtn))
-        			.addGap(18)
-        			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(64, Short.MAX_VALUE))
+            gl_panel.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(backBtn)
+                    .addGap(41)
+                    .addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+                        .addComponent(posterLabel, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(gl_panel.createSequentialGroup()
+                            .addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+                                .addComponent(movieYearLbl)
+                                .addComponent(movieNameLbl))
+                            .addGap(18)
+                            .addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+                                .addComponent(ratingLbl)
+                                .addComponent(ratingVal))
+                            .addGap(18)
+                            .addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+                                .addComponent(genresLbl)
+                                .addComponent(genresVal))
+                            .addGap(18)
+                            .addComponent(descLbl)
+                            .addGap(18)
+                            .addComponent(descVal, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(listButtonsPanel)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(reviewLbl)))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+                        .addComponent(reviewField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ratingDropdown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(submitBtn))
+                    .addGap(18)
+                    .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(64, Short.MAX_VALUE))
         );
         setLayout(gl_panel);
     }
@@ -260,6 +267,59 @@ public class MoviePage extends JPanel {
 	    }
 	    reviewsPanel.revalidate();
 	    reviewsPanel.repaint();
+	}
+	
+	private JPanel createListButtonsPanel(User user, int movieId) {
+	    JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
+	    panel.setBackground(new Color(30, 32, 34));
+	    
+	    JButton watchedBtn = createListButton("Add to Watched", new Color(76, 175, 80));
+	    JButton planToWatchBtn = createListButton("Add to Plan to Watch", new Color(33, 150, 243));
+	    JButton favoritesBtn = createListButton("Add to Favorites", new Color(255, 193, 7));
+	    JButton droppedBtn = createListButton("Add to Dropped", new Color(244, 67, 54));
+	    
+	    watchedBtn.addActionListener(e -> addToMovieList(user, movieId, "watched"));
+	    planToWatchBtn.addActionListener(e -> addToMovieList(user, movieId, "plan_to_watch"));
+	    favoritesBtn.addActionListener(e -> addToMovieList(user, movieId, "favorites"));
+	    droppedBtn.addActionListener(e -> addToMovieList(user, movieId, "dropped"));
+	    
+	    panel.add(watchedBtn);
+	    panel.add(planToWatchBtn);
+	    panel.add(favoritesBtn);
+	    panel.add(droppedBtn);
+	    
+	    return panel;
+	}
+
+	private JButton createListButton(String text, Color color) {
+	    JButton button = new JButton(text);
+	    button.setBackground(color);
+	    button.setForeground(Color.WHITE);
+	    button.setFocusPainted(false);
+	    button.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+	    button.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+	    return button;
+	}
+
+	private void addToMovieList(User user, int movieId, String listType) {
+	    if (user == null) {
+	        JOptionPane.showMessageDialog(this, "You must be logged in to add to lists.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    
+	    if (user.getList(listType).contains(movieId)) {
+	        JOptionPane.showMessageDialog(this, 
+	            "This movie is already in your " + listType + " list!",
+	            "Duplicate Entry",
+	            JOptionPane.INFORMATION_MESSAGE);
+	        return;
+	    }
+	    
+	    user.addToList(listType, movieId);
+	    JOptionPane.showMessageDialog(this, 
+	        "Movie added to your " + listType + " list!",
+	        "Success",
+	        JOptionPane.INFORMATION_MESSAGE);
 	}
 
 
