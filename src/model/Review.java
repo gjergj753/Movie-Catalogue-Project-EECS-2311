@@ -20,13 +20,14 @@ public class Review implements Serializable {
     private int rating;
     private String comment;
     private LocalDateTime createdAt;
+	private String username;
 
     private static final String FILE_NAME = "reviews.dat";
     private static Map<Integer, Review> reviews = loadReviews();
-
-    public Review(int userId, int movieId, int rating, String comment) {
+   
+    public Review(String username, int movieId, int rating, String comment) {
         this.reviewId = id++;
-        this.userId = userId;
+        this.username = username;
         this.movieId = movieId;
         this.rating = rating;
         this.comment = comment;
@@ -67,6 +68,15 @@ public class Review implements Serializable {
 
     public String getComment() {
         return comment;
+    }
+    
+    public String getUsername() {
+    	if(username==null) {
+    		return User.getUserById(userId).getUsername();
+    	}else {
+    		return username;
+    	}
+    	
     }
 
     public void setComment(String comment) {
