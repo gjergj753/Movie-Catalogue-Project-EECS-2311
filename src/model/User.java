@@ -45,9 +45,28 @@ public class User implements Serializable{
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public static boolean changeUsername(String oldUsername, String newUsername) {
+    	if (users.containsKey(newUsername)) {
+            return false;
+        }
+        
+        // 2. Get the user object
+        User user = users.get(oldUsername);
+        if (user == null) {
+            return false;
+        }
+        
+        // 3. Update the data structure
+        users.remove(oldUsername);
+        user.userName = newUsername;  // Update the instance
+        users.put(newUsername, user); // Re-add with new key
+        
+        // 4. Force immediate save
+        saveUsers(); // This writes the updated Map to users.dat
+        
+        return true;
     }
+    
 
     public boolean authenticate(String inputPassword) {
         return this.password.equals(inputPassword);
