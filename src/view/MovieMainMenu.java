@@ -51,11 +51,13 @@ public class MovieMainMenu extends JFrame {
         genreToggleButton.setBackground(new Color(30, 32, 34));
         genreToggleButton.setForeground(new Color(240, 245, 249));
         genreToggleButton.setFocusPainted(false);
+        genreToggleButton.setPreferredSize(new Dimension(150, 40)); // Set fixed size
 
         JPanel genrePanel = new JPanel();
         genrePanel.setLayout(new BoxLayout(genrePanel, BoxLayout.Y_AXIS));
         genrePanel.setBackground(new Color(240, 245, 249));
         genrePanel.setVisible(false);
+        genrePanel.setPreferredSize(new Dimension(150, 200)); // Set fixed size
 
         Set<String> allGenres = allMovies.stream()
                 .flatMap(movie -> movie.getGenres().stream())
