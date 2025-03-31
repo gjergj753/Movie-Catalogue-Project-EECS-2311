@@ -10,6 +10,7 @@ public class UserPage extends JFrame {
     private String username;
     private JPanel listDisplayPanel;
     private JScrollPane scrollPane;
+    private JLabel usernameLabel;
 
     public UserPage(String username) {
         this.username = username;
@@ -28,11 +29,38 @@ public class UserPage extends JFrame {
         profilePanel.setBackground(Color.WHITE);
         profilePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
-        JLabel usernameLabel = new JLabel(username, SwingConstants.CENTER);
+        usernameLabel = new JLabel(username, SwingConstants.CENTER);
         usernameLabel.setFont(new Font("Arial", Font.BOLD, 20));
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        
+        JButton changeUsernameBtn = new JButton("Change Username");
+        changeUsernameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        changeUsernameBtn.setFont(new Font("Arial", Font.PLAIN, 12));
+        changeUsernameBtn.setBackground(new Color(240, 240, 240));
+        changeUsernameBtn.addActionListener(e -> {
+            String newUsername = JOptionPane.showInputDialog(
+                this, "Enter new username:", "Change Username", JOptionPane.PLAIN_MESSAGE);
+                
+            if (newUsername != null && !newUsername.trim().isEmpty()) {
+                if (User.changeUsername(this.username, newUsername)) {
+                    this.username = newUsername;
+                    usernameLabel.setText(newUsername);
+                    JOptionPane.showMessageDialog(this, 
+                        "Username changed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, 
+                        "Username already exists or error occurred", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        
+        
 
         profilePanel.add(usernameLabel);
+        
+        profilePanel.add(Box.createRigidArea(new Dimension(0, 5))); // Add some space
+        profilePanel.add(changeUsernameBtn);
 
         // List Buttons Section (without Delete button)
         JPanel listButtonPanel = new JPanel(new GridLayout(1, 4, 10, 0));
